@@ -21,7 +21,7 @@ namespace OS.Core.Api.Middleware
         public async Task Invoke(HttpContext context, ILoggerFactory loggerFactory)
         {
             var logger = loggerFactory.CreateLogger<CorrelationIdMiddleware>();
-
+            
             if (!context.Request.Headers.ContainsKey(Constants.RequestCorrelation.RequestHeaderName))
             {
                 var correlationId = Guid.NewGuid().ToString();
