@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OS.Core.Api
+namespace OS.Core
 {
     public class ApiResult
     {

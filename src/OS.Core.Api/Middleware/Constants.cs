@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OS.Core.Api.Middleware
+﻿namespace OS.Core.Middleware
 {
     public static class Constants
     {

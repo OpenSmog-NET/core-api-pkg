@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
 
-namespace OS.Core.Api.Middleware
+namespace OS.Core.Middleware
 {
     public class CorrelationIdMiddleware
     {

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,10 +7,10 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using OS.Core.Api.Middleware;
+using OS.Core.Middleware;
 using Shouldly;
 
-namespace OS.Core.Api.UnitTests
+namespace OS.Core.UnitTests
 {
     public class CorrelationIdMiddlewareFixture : IDisposable
     {

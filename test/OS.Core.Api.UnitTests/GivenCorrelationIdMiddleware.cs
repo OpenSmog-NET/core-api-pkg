@@ -1,10 +1,9 @@
-using System;
 using System.Net;
 using System.Threading.Tasks;
 using Shouldly;
 using Xunit;
 
-namespace OS.Core.Api.UnitTests
+namespace OS.Core.UnitTests
 {
     public class GivenCorrelationIdMiddleware : IClassFixture<CorrelationIdMiddlewareFixture>
     {
