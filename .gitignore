@@ -18,6 +18,7 @@ npm-debug.log.*
 *.userprefs
 .nuget
 .vscode
+.vs
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
