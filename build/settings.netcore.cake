@@ -27,6 +27,7 @@ var getDotNetCoreBuildSettings = new Func<DotNetCoreBuildSettings>(() => new Dot
 
 // dotnet test
 var getDotNetCoreTestSettings = new Func<string, string, DotNetCoreTestSettings>((project, testType) => new DotNetCoreTestSettings() {
+    ToolPath = "tools/xunit.runner.console/tools/xunit.console.exe",
     ArgumentCustomization = args => args
         .Append($"-xml {TestDir}/results/{project}.xml")
 });

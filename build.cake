@@ -21,6 +21,8 @@ Task(UnitTests)
     .IsDependentOn(Build)
     .Does(() => {
     forEachPath(unitTests, null, (test) => {
+        Information("Running UNIT TESTS ===")
+        Information($"Running test: {test}");
         DotNetCoreTest(test, getDotNetCoreTestSettings(test, UnitTests));
     });
 }); // UnitTests
