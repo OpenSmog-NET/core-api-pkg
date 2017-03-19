@@ -18,7 +18,6 @@ Task(Build)
 }); // Build
 
 Task(UnitTests)
-    .IsDependentOn(Build)
     .Does(() => {
     forEachPath(unitTests, null, (test) => {        
         Information($"Running test: {test}");
