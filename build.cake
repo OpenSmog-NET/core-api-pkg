@@ -25,19 +25,18 @@ Task(Build)
 
 Task(UnitTests)
     .Does(() => {
-    forEachPath(unitTests, null, (test) => {        
-        Information($"Running test: {test}");
+    forEachPath(unitTests, null, (test) => {
         DotNetCoreTest(test, getDotNetCoreTestSettings(test, UnitTests));
     });
 }); // UnitTests
 
 Task(Pack)
-    .WithCriteria(canEmitArtifacts(branch))
+    .WithCriteria(canEmitArtifacts(@branch))
     .Does(() => {
     forEachPath(packages, null, (package) => {
-        DotNetCorePack(package, getDotNetCorePackSettings(package));
+        DotNetCorePack(package, getDotNetCorePackSettings(package, @branch, @buildNumber));
     });
     // pack all nuget projects
 }); // Pack
 
-RunTarget(target);
+RunTarget(@target);

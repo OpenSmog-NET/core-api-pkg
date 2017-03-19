@@ -17,7 +17,7 @@ var getDotNetCoreRestoreSettings  = new Func<DotNetCoreRestoreSettings>(() => ne
  */
 var getDotNetCoreBuildSettings = new Func<DotNetCoreBuildSettings>(() => new DotNetCoreBuildSettings
 {
-    Configuration = configuration,
+    Configuration = @configuration,
 });
 
 /**
@@ -37,12 +37,15 @@ var getDotNetCoreTestSettings = new Func<string, string, DotNetCoreTestSettings>
  */
 var getDotNetCorePublishSettings = new Func<string, DotNetCorePublishSettings>((project) => new DotNetCorePublishSettings() {
     OutputDirectory = $"{ArtifactsDir}/apps/{getProjectName(project)}",
-    Configuration = configuration
+    Configuration = @configuration
 });
 
 /**
  * dotnet pack
  */
-var getDotNetCorePackSettings = new Func<string, DotNetCorePackSettings>((project) => new DotNetCorePackSettings() {
-    OutputDirectory = $"{ArtifactsDir}/packages/{getProjectName(project)}"
+var getPackageVersionSuffix = new Func<string, string, string>((branchName, buildNo) => branchName == "dev" ? $"pre-{buildNo}" : null);
+
+var getDotNetCorePackSettings = new Func<string, string, string, DotNetCorePackSettings>((project, branchName, buildNo) => new DotNetCorePackSettings() {
+    OutputDirectory = $"{ArtifactsDir}/packages/",
+    VersionSuffix = getPackageVersionSuffix(branchName, buildNo)
 });

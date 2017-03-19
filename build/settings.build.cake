@@ -34,10 +34,11 @@ const string UITests = "UITests";
 /**
  * Commandline Arguments
  */
-var target          = Argument<string>("target", Build);            // CAKE Target
-var configuration   = Argument<string>("configuration", "Release"); // Build Configuration [Debug|Release]
-var platform        = Argument<string>("platform", "Any Cpu");      // Build Platform [x86|x64|Any Cpu]
-var branch          = Argument<string>("branch", null);             // The GIT branch name
+var @target          = Argument<string>("target", Build);            // CAKE Target
+var @configuration   = Argument<string>("configuration", "Release"); // Build Configuration [Debug|Release]
+var @platform        = Argument<string>("platform", "Any Cpu");      // Build Platform [x86|x64|Any Cpu]
+var @branch          = Argument<string>("branch", null);             // The GIT branch name
+var @buildNumber     = Argument<string>("buildNumber", null);        // The CI build number
 
 /**
  * Auxiliaries
@@ -58,9 +59,9 @@ var componentTests      = getTestProjects(ComponentTests);
 var functionalTests     = getTestProjects(FunctionalTests);
 var uiTests             = getTestProjects(UITests);
 
-var forEachPath = new Action<IEnumerable<string>, Func<string, string>, Action<string>>((files, filter, action) => {
+var forEachPath = new Action<IEnumerable<string>, Func<string, string>, Action<string>>((files, map, action) => {
     foreach(var file in files) {
-        if (filter == null) action(file); else action(filter(file));
+        if (map == null) action(file); else action(map(file));
     }
 });
 

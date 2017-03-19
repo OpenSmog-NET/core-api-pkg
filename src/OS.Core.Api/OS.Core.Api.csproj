@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <RootNamespace>OS.Core</RootNamespace>
-    <Version>0.0.1</Version>
+    <VersionPrefix>0.0.1</VersionPrefix>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Description>OpenSmog Core API package</Description>
     <Copyright>OpenSmog</Copyright>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
