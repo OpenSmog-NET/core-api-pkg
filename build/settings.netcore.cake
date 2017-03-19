@@ -7,32 +7,37 @@ var toAssemblyInfoPath = new Func<string, string>((project) => $"./{project}/Pro
 // dotnet restore
 var getDotNetCoreRestoreSettings  = new Func<DotNetCoreRestoreSettings>(() => new DotNetCoreRestoreSettings()
 {
-    Sources = new string[] {
-        "https://api.nuget.org/v3/index.json",
+    // Sources = new string[] {
+    //     "https://api.nuget.org/v3/index.json",
 
-        },
-    FallbackSources = new string[] {
-        //"https://www.nuget.org/api/v2"
-        },
-    //PackagesDirectory = "./packages",
-    Verbosity = DotNetCoreRestoreVerbosity.Error,
+    //     },
+    // FallbackSources = new string[] {
+    //     //"https://www.nuget.org/api/v2"
+    //     },
+    // //PackagesDirectory = "./packages",
+    //Verbosity = DotNetCoreRestoreVerbosity.Error,
     DisableParallel = false,
 });
 
 // dotnet build
 var getDotNetCoreBuildSettings = new Func<DotNetCoreBuildSettings>(() => new DotNetCoreBuildSettings
 {
-    Configuration = debug ? "Debug" : "Release"
+    Configuration = configuration,
 });
 
 // dotnet test
 var getDotNetCoreTestSettings = new Func<string, string, DotNetCoreTestSettings>((project, testType) => new DotNetCoreTestSettings() {
-    ArgumentCustomization = args=>args
-    .Append($"-xml {TestDir}/results/{project}.xml")    
+    ArgumentCustomization = args => args
+        .Append($"-xml {TestDir}/results/{project}.xml")
 });
 
 // dotnet publish
 var getDotNetCorePublishSettings = new Func<string, DotNetCorePublishSettings>((project) => new DotNetCorePublishSettings() {
-    OutputDirectory = $"{AppsDir}/{project}",
-    Configuration = debug ? "Debug" : "Release"
+    OutputDirectory = $"{ArtifactsDir}/apps/{project}",
+    Configuration = configuration
+});
+
+// dotnet pack
+var getDotNetCorePackSettings = new Func<string, DotNetCorePackSettings>((project) => new DotNetCorePackSettings() {
+    OutputDirectory = $"{ArtifactsDir}/packages/{project}"
 });
