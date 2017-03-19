@@ -7,7 +7,6 @@
  */
 var getDotNetCoreRestoreSettings  = new Func<DotNetCoreRestoreSettings>(() => new DotNetCoreRestoreSettings()
 {
-    Verbosity = DotNetCoreRestoreVerbosity.Error,
     DisableParallel = false,
 });
 
