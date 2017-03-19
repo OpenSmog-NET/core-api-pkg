@@ -18,8 +18,7 @@ copy %CACHED_NUGET% .\tools\.nuget\nuget.exe > nul
 :restore
 .\tools\.nuget\NuGet.exe update -self
 .\tools\.nuget\NuGet.exe install Cake -OutputDirectory .\tools -ExcludeVersion
-REM .\tools\.nuget\NuGet.exe install xunit.runner.console -OutputDirectory .\tools -ExcludeVersion
-REM REM .\tools\.nuget\NuGet.exe restore ..\Pyra.RiskProfiler.sln
+.\tools\.nuget\NuGet.exe install xunit.runner.console -OutputDirectory .\tools -ExcludeVersion
 
 :buildsolution
 set encoding=utf-8

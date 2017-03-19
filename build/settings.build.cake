@@ -2,7 +2,8 @@
  * Tools
  */
 
-#tool "nuget:?package=xunit.runner.console"
+// todo: Reenable this once vso-cake #30 is released
+// #tool "nuget:?package=xunit.runner.console"
 
 /**
  * Directories
