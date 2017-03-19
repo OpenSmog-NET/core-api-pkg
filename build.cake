@@ -1,3 +1,9 @@
+/**
+ * File: build.cake
+ * Desc: CAKE build system
+ * Author: mmisztal1980
+ */
+
 #load "build/settings.build.cake"
 
 const string SolutionFile = "OS.Core.Api.sln";
@@ -26,7 +32,7 @@ Task(UnitTests)
 }); // UnitTests
 
 Task(Pack)
-    .IsDependentOn(UnitTests)
+    .WithCriteria(canEmitArtifacts(branch))
     .Does(() => {
     forEachPath(packages, null, (package) => {
         DotNetCorePack(package, getDotNetCorePackSettings(package));

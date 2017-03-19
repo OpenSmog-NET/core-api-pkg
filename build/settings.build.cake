@@ -1,4 +1,10 @@
 /**
+ * File: settings.build.cake
+ * Desc: General CAKE build system settings
+ * Author: mmisztal1980
+ */
+
+/**
  * Tools
  */
 
@@ -31,6 +37,7 @@ const string UITests = "UITests";
 var target          = Argument<string>("target", Build);            // CAKE Target
 var configuration   = Argument<string>("configuration", "Release"); // Build Configuration [Debug|Release]
 var platform        = Argument<string>("platform", "Any Cpu");      // Build Platform [x86|x64|Any Cpu]
+var branch          = Argument<string>("branch", null);             // The GIT branch name
 
 /**
  * Auxiliaries
@@ -42,6 +49,8 @@ var getProjectsDirs = new Func<IEnumerable<string>, IEnumerable<string>>((paths)
 var getProjectName = new Func<string, string>(project => project.Split(new [] { "/" }, StringSplitOptions.RemoveEmptyEntries)
     .Last()
     .Replace(".csproj", string.Empty));
+
+var canEmitArtifacts = new Func<string, bool>((branchName) => branchName != null && (branchName.Equals("dev") || branchName.Equals("master")));
 
 var unitTests           = getTestProjects(UnitTests);
 var integrationTests    = getTestProjects(IntegrationTests);

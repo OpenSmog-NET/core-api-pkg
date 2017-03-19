@@ -1,6 +1,8 @@
-// var toRelativePath = new Func<string, string>((project) => $"./{project}");
-// var toTestRelativePath = new Func<string, string>((project) => $"../test/{project}");
-// var toAssemblyInfoPath = new Func<string, string>((project) => $"./{project}/Properties/AssemblyInfo.cs");
+/**
+ * File: settings.netcore.cake
+ * Desc: CAKE settings for DotNetCore* Tasks
+ * Author: mmisztal1980
+ */
 
 /**
  * dotnet restore
@@ -34,7 +36,7 @@ var getDotNetCoreTestSettings = new Func<string, string, DotNetCoreTestSettings>
  * dotnet publish
  */
 var getDotNetCorePublishSettings = new Func<string, DotNetCorePublishSettings>((project) => new DotNetCorePublishSettings() {
-    OutputDirectory = $"{ArtifactsDir}/apps/{project}",
+    OutputDirectory = $"{ArtifactsDir}/apps/{getProjectName(project)}",
     Configuration = configuration
 });
 
@@ -42,5 +44,5 @@ var getDotNetCorePublishSettings = new Func<string, DotNetCorePublishSettings>((
  * dotnet pack
  */
 var getDotNetCorePackSettings = new Func<string, DotNetCorePackSettings>((project) => new DotNetCorePackSettings() {
-    OutputDirectory = $"{ArtifactsDir}/packages/{project}"
+    OutputDirectory = $"{ArtifactsDir}/packages/{getProjectName(project)}"
 });
