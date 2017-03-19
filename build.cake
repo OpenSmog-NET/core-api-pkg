@@ -8,14 +8,14 @@ var packages = getProjectsDirs(new string[] {
 
 Task(Restore).Does(() => {
     DotNetCoreRestore(SolutionFile, getDotNetCoreRestoreSettings());
-});
+}); // Restore
 
 Task(Build)
     .IsDependentOn(Restore)
     .Does(() => {
     Information($"Starting build({configuration}, {platform})");
     DotNetCoreBuild(SolutionFile, getDotNetCoreBuildSettings());
-});
+}); // Build
 
 Task(UnitTests)
     .IsDependentOn(Build)
@@ -33,6 +33,6 @@ Task(Pack)
         DotNetCorePack(package, getDotNetCorePackSettings(package));
     });
     // pack all nuget projects
-});
+}); // Pack
 
 RunTarget(target);

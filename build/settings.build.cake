@@ -25,9 +25,12 @@ const string ComponentTests = "ComponentTests";
 const string FunctionalTests = "FunctionalTests";
 const string UITests = "UITests";
 
-var target          = Argument<string>("target", Build);
-var configuration   = Argument<string>("configuration", "Release");
-var platform        = Argument<string>("platform", "Any Cpu");
+/**
+ * Commandline Arguments
+ */
+var target          = Argument<string>("target", Build);            // CAKE Target
+var configuration   = Argument<string>("configuration", "Release"); // Build Configuration [Debug|Release]
+var platform        = Argument<string>("platform", "Any Cpu");      // Build Platform [x86|x64|Any Cpu]
 
 /**
  * Auxiliaries
@@ -35,6 +38,10 @@ var platform        = Argument<string>("platform", "Any Cpu");
 
 var getTestProjects = new Func<string, IEnumerable<string>>((testType) => GetFiles($"./test/**/*.{testType}.csproj").Select(x => x.FullPath));
 var getProjectsDirs = new Func<IEnumerable<string>, IEnumerable<string>>((paths) => paths.Select(x => $"./src/{x}"));
+
+var getProjectName = new Func<string, string>(project => project.Split(new [] { "/" }, StringSplitOptions.RemoveEmptyEntries)
+    .Last()
+    .Replace(".csproj", string.Empty));
 
 var unitTests           = getTestProjects(UnitTests);
 var integrationTests    = getTestProjects(IntegrationTests);
