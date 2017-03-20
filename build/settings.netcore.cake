@@ -44,7 +44,7 @@ var getDotNetCorePublishSettings = new Func<string, DotNetCorePublishSettings>((
  * dotnet pack
  */
 var getPackageVersionSuffix = new Func<string, string, string>((branchName, buildNo) => branchName == "dev" ? $"pre-{buildNo.Replace(".", string.Empty)}" : null);
-var getPackageOutputDirectory = new Func<string, string>((branchName) => branchName == "dev" ? $"{ArtifactsDir}/packages/pre" : $"{ArtifactsDir}/packages/")
+var getPackageOutputDirectory = new Func<string, string>((branchName) => branchName == "dev" ? $"{ArtifactsDir}/packages/pre" : $"{ArtifactsDir}/packages/");
 var getDotNetCorePackSettings = new Func<string, string, string, DotNetCorePackSettings>((project, branchName, buildNo) => new DotNetCorePackSettings() {
     OutputDirectory = getPackageOutputDirectory(branchName),
     VersionSuffix = getPackageVersionSuffix(branchName, buildNo)
