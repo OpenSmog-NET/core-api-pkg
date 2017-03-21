@@ -30,13 +30,19 @@ Task(UnitTests)
     });
 }); // UnitTests
 
+Task(IntegrationTests)
+    .Does(() => {
+    forEachPath(integrationTests, null, (test) => {
+        DotNetCoreTest(test, getDotNetCoreTestSettings(test, IntegrationTests));
+    });
+}); // IntegrationTests
+
 Task(Pack)
     .WithCriteria(canEmitArtifacts(@branch))
     .Does(() => {
     forEachPath(packages, null, (package) => {
         DotNetCorePack(package, getDotNetCorePackSettings(package, @branch, @buildNumber));
     });
-    // pack all nuget projects
 }); // Pack
 
 RunTarget(@target);
