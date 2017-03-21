@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using OS.Core.Middleware;
+using Serilog;
 
 namespace OS.Core
 {
@@ -22,9 +20,9 @@ namespace OS.Core
             return app;
         }
 
-        public static IApplicationBuilder UseRequestLoggingMiddleware(this IApplicationBuilder app)
+        public static IApplicationBuilder UseRequestLoggingMiddleware(this IApplicationBuilder app, ILogger logger = null)
         {
-            app.UseMiddleware<RequestLoggingMiddleware>();
+            app.UseMiddleware<RequestLoggingMiddleware>(logger);
 
             return app;
         }

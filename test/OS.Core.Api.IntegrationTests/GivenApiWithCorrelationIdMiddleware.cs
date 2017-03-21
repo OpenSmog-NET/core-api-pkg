@@ -1,10 +1,8 @@
-using System;
-using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
+using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace OS.Core.Api.IntegrationTests
@@ -12,31 +10,36 @@ namespace OS.Core.Api.IntegrationTests
     public class GivenApiWithCorrelationIdMiddleware : ApiTestFixture<GivenApiWithCorrelationIdMiddleware.Startup>
     {
         [Fact]
-        public async Task WhenCallingTheApi_SuccessResponse_CorrelationIdShouldBeGenerated()
+        public async Task WhenCallingTheApi_FailureResponse_CorrelationIdShouldBeGenerated()
         {
+            // Arrange
             var client = Server.CreateClient();
-            var result = await client.GetAsync("/");
 
-            result.StatusCode.ShouldBe(HttpStatusCode.OK);
+            // Act
+            var result = await client.GetAsync("/error");
+
+            // Assert
+            result.StatusCode.ShouldBe(HttpStatusCode.InternalServerError);
         }
 
         [Fact]
-        public async Task WhenCallingTheApi_FailureResponse_CorrelationIdShouldBeGenerated()
+        public async Task WhenCallingTheApi_SuccessResponse_CorrelationIdShouldBeGenerated()
         {
+            // Arrange
             var client = Server.CreateClient();
-            var result = await client.GetAsync("/error");
 
-            result.StatusCode.ShouldBe(HttpStatusCode.InternalServerError);
+            // Act
+            var result = await client.GetAsync("/");
+
+            // Assert
+            result.StatusCode.ShouldBe(HttpStatusCode.OK);
         }
 
         public class Startup
         {
-            public void ConfigureServices(IServiceCollection services)
-            { }
-
             public void Configure(IApplicationBuilder app)
             {
-                app.UseOpenSmogMiddlewares();
+                app.UseCorrelationIdMiddleware();
                 app.Map("/error", appl =>
                 {
                     appl.Run(async (ctx) =>
@@ -56,6 +59,10 @@ namespace OS.Core.Api.IntegrationTests
 
                     await Task.FromResult(0);
                 });
+            }
+
+            public void ConfigureServices(IServiceCollection services)
+            {
             }
         }
     }

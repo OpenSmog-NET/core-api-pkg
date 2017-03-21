@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Serilog;
 using Serilog.Events;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OS.Core.Middleware
 {
     public class RequestLoggingMiddleware
     {
-        const string MessageTemplate =
+        private const string MessageTemplate =
             "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
 
-        private static readonly ILogger Log = Serilog.Log.ForContext<RequestLoggingMiddleware>();
+        private readonly ILogger logger;
 
-        readonly RequestDelegate next;
+        private readonly RequestDelegate next;
 
-        public RequestLoggingMiddleware(RequestDelegate next)
+        public RequestLoggingMiddleware(RequestDelegate next, ILogger logger = null)
         {
             if (next == null) throw new ArgumentNullException(nameof(next));
             this.next = next;
+
+            this.logger = logger ?? Log.ForContext<RequestLoggingMiddleware>();
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -37,7 +37,7 @@ namespace OS.Core.Middleware
                 var statusCode = httpContext.Response?.StatusCode;
                 var level = statusCode > 499 ? LogEventLevel.Error : LogEventLevel.Information;
 
-                var log = level == LogEventLevel.Error ? LogForErrorContext(httpContext) : Log;
+                var log = level == LogEventLevel.Error ? LogForErrorContext(httpContext) : this.logger;
                 log.Write(level, MessageTemplate, httpContext.Request.Method, httpContext.Request.Path, statusCode,
                     sw.Elapsed.TotalMilliseconds);
             }
@@ -50,21 +50,19 @@ namespace OS.Core.Middleware
             }
         }
 
-        static bool LogException(HttpContext httpContext, Stopwatch sw, Exception ex)
+        private bool LogException(HttpContext httpContext, Stopwatch sw, Exception ex)
         {
-            sw.Stop();
-
             LogForErrorContext(httpContext)
                 .Error(ex, MessageTemplate, httpContext.Request.Method, httpContext.Request.Path, 500, sw.Elapsed.TotalMilliseconds);
 
             return false;
         }
 
-        private static ILogger LogForErrorContext(HttpContext httpContext)
+        private ILogger LogForErrorContext(HttpContext httpContext)
         {
             var request = httpContext.Request;
 
-            var result = Log
+            var result = logger
                 .ForContext("RequestHeaders", request.Headers.ToDictionary(h => h.Key, h => h.Value.ToString()), destructureObjects: true)
                 .ForContext("RequestHost", request.Host)
                 .ForContext("RequestProtocol", request.Protocol);
