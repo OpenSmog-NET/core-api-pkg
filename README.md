@@ -8,8 +8,8 @@ Core ASP.NET Core WebApi Middleware and Dtos
 
 |Branch   |Status|
 |---------|------|
-feature/* |[badge](https://opensmog-net.visualstudio.com/_apis/public/build/definitions/dbf362cf-6d45-4160-8ea6-622363ba1a82/2/badge)
-dev/master|[badge](https://opensmog-net.visualstudio.com/_apis/public/build/definitions/dbf362cf-6d45-4160-8ea6-622363ba1a82/6/badge)
+feature/* |![badge](https://opensmog-net.visualstudio.com/_apis/public/build/definitions/dbf362cf-6d45-4160-8ea6-622363ba1a82/2/badge)
+dev/master|![badge](https://opensmog-net.visualstudio.com/_apis/public/build/definitions/dbf362cf-6d45-4160-8ea6-622363ba1a82/6/badge)
 
 ## Building the project
 
