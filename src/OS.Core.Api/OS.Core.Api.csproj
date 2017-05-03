@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.1;net462</TargetFrameworks>
+    <TargetFramework>net462</TargetFramework>
     <RootNamespace>OS.Core</RootNamespace>
     <VersionPrefix>0.0.1</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
@@ -26,12 +26,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
     <PackageReference Include="Serilog" Version="2.4.0" />
   </ItemGroup>
-
-  <!--Required for multi-targeting -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.1'">
-    <PackageReference Include="Microsoft.NETCore.App">
-      <Version>1.1.1</Version>
-    </PackageReference>
-  </ItemGroup>
-
 </Project>
