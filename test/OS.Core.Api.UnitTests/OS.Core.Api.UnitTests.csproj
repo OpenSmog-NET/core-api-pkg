@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>    
-    <TargetFramework>net462</TargetFramework>
-    <OutputType>library</OutputType>
-    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>OS.Core.UnitTests</RootNamespace>
   </PropertyGroup>
 
@@ -31,5 +29,4 @@
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
-
 </Project>

@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
-    <OutputType>library</OutputType>
-    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <RootNamespace>OS.Core</RootNamespace>
     <VersionPrefix>0.0.1</VersionPrefix>
